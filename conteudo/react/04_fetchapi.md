@@ -260,72 +260,38 @@ export default AddPostForm;
 
 ---
 
-### 5. Padrão Avançado: Hook Customizado `useFetch`
+## Hooks Customizados para Fetch
 
-Para evitar repetir a lógica de `fetch`, `loading` e `error` em todos os componentes, podemos abstraí-la em um **hook customizado**. Esta é uma prática altamente recomendada em projetos React.
+Para reutilizar a lógica de chamadas à API, crie hooks customizados.
 
-**Criando o hook `useFetch.js`:**
+### Exemplo: useFetch
 
 ```jsx
-// src/hooks/useFetch.js
 import { useState, useEffect } from 'react';
 
-export function useFetch(url) {
+function useFetch(url) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const response = await fetch(url);
+        setLoading(true);
+        fetch(url)
+            .then((response) => {
                 if (!response.ok) {
-                    throw new Error('A resposta da rede não foi ok');
+                    throw new Error('Erro na requisição');
                 }
-                const result = await response.json();
-                setData(result);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [url]); // O efeito será re-executado se a URL mudar
+                return response.json();
+            })
+            .then((data) => setData(data))
+            .catch((error) => setError(error))
+            .finally(() => setLoading(false));
+    }, [url]);
 
     return { data, loading, error };
 }
-```
 
-**Usando o hook no componente:**
-
-O componente fica muito mais limpo e focado na renderização.
-
-```jsx
-import React from 'react';
-import { useFetch } from './hooks/useFetch'; // Importe o hook
-
-function UserList() {
-    const { data: users, loading, error } = useFetch('https://jsonplaceholder.typicode.com/users');
-
-    if (loading) return <p>Carregando usuários...</p>;
-    if (error) return <p>Erro: {error}</p>;
-
-    return (
-        <div>
-            <h1>Lista de Usuários</h1>
-            <ul>
-                {users?.map((user) => (
-                    <li key={user.id}>{user.name} ({user.email})</li>
-                ))}
-            </ul>
-        </div>
-    );
-}
-
-export default UserList;
+export default useFetch;
 ```
 
 ---

@@ -87,6 +87,59 @@ Use tags para destacar partes do texto:
 
 -----
 
+## 3. Elementos Semânticos
+
+Elementos semânticos tornam o código mais legível e acessível. Exemplos:
+
+- **`<header>`**: Cabeçalho da página ou seção.
+- **`<footer>`**: Rodapé.
+- **`<nav>`**: Navegação principal.
+- **`<main>`**: Conteúdo principal.
+
+### Exemplo
+```html
+<header>
+    <h1>Bem-vindo ao meu site</h1>
+</header>
+<nav>
+    <ul>
+        <li><a href="#">Início</a></li>
+        <li><a href="#">Sobre</a></li>
+    </ul>
+</nav>
+<main>
+    <p>Conteúdo principal aqui.</p>
+</main>
+<footer>
+    <p>&copy; 2025 Meu Site</p>
+</footer>
+```
+
+## 4. Tabelas Acessíveis
+
+Use atributos como `scope` e `aria-describedby` para melhorar a acessibilidade de tabelas.
+
+### Exemplo
+```html
+<table>
+    <caption>Dados de vendas</caption>
+    <thead>
+        <tr>
+            <th scope="col">Produto</th>
+            <th scope="col">Quantidade</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Caneta</td>
+            <td>50</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+-----
+
 ### Exemplo Completo de HTML Moderno
 
 ```html

@@ -177,111 +177,124 @@ Alinha individualmente o item na célula.
 
 ## Exemplos Práticos
 
-### Exemplo 1: Grid Básico
+### Exemplo 1: Layout Básico
 
 ```html
 <div class="container">
-    <div>1</div>
-    <div>2</div>
-    <div>3</div>
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
 </div>
 ```
 
 ```css
 .container {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
+}
+
+.item {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 20px;
 }
 ```
 
-### Exemplo 2: Grid com Áreas
+### Exemplo 2: Layout com `grid-template-areas`
 
 ```html
-<div class="container">
+<div class="grid">
     <header>Header</header>
-    <aside>Sidebar</aside>
+    <nav>Nav</nav>
     <main>Main</main>
     <footer>Footer</footer>
 </div>
 ```
 
 ```css
-.container {
+.grid {
     display: grid;
     grid-template-areas:
         "header header"
-        "sidebar main"
+        "nav main"
         "footer footer";
-    grid-template-columns: 200px 1fr;
-    grid-template-rows: 60px 1fr 40px;
+    grid-template-columns: 1fr 3fr;
     gap: 10px;
 }
-header { grid-area: header; }
-aside { grid-area: sidebar; }
-main { grid-area: main; }
-footer { grid-area: footer; }
+
+header {
+    grid-area: header;
+}
+nav {
+    grid-area: nav;
+}
+main {
+    grid-area: main;
+}
+footer {
+    grid-area: footer;
+}
 ```
 
 ---
 
-## 🚀 Atividade Prática 07
+## Propriedades Avançadas
 
-### Objetivo
+### `grid-auto-flow`
+Controla como os itens são posicionados automaticamente.
 
-Construir um layout de página usando CSS Grid, explorando as principais propriedades.
+```css
+.container {
+    grid-auto-flow: row;
+}
+```
 
-### Passos
+### `repeat()` e `minmax()`
+Cria layouts dinâmicos e responsivos.
 
-1. **Estrutura HTML**
-     ```html
-     <div class="grid-exercicio">
-         <header>Header</header>
-         <nav>Menu</nav>
-         <main>Conteúdo</main>
-         <aside>Sidebar</aside>
-         <footer>Footer</footer>
-     </div>
-     ```
-
-2. **Defina o Container Grid**
-     ```css
-     .grid-exercicio {
-         display: grid;
-         grid-template-areas:
-             "header header header"
-             "nav main aside"
-             "footer footer footer";
-         grid-template-columns: 150px 1fr 200px;
-         grid-template-rows: 60px 1fr 40px;
-         gap: 15px;
-         height: 100vh;
-     }
-     ```
-
-3. **Associe as Áreas**
-     ```css
-     header { grid-area: header; background: #b3cde0; }
-     nav { grid-area: nav; background: #6497b1; }
-     main { grid-area: main; background: #005b96; color: #fff; }
-     aside { grid-area: aside; background: #03396c; color: #fff; }
-     footer { grid-area: footer; background: #011f4b; color: #fff; }
-     ```
-
-4. **Teste Propriedades**
-     - Altere `grid-template-columns` para ver o efeito.
-     - Modifique `gap` para ajustar espaçamento.
-     - Use `justify-items` e `align-items` para alinhar o conteúdo.
-     - Experimente `grid-auto-flow: dense;` e adicione mais elementos.
-
-5. **Desafio Extra**
-     - Adicione mais linhas/colunas.
-     - Use `grid-column` e `grid-row` em elementos para sobrepor áreas.
+```css
+.container {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+}
+```
 
 ---
 
-## Referências
+## Responsividade com Media Queries
 
-- [MDN Web Docs: CSS Grid Layout](https://developer.mozilla.org/pt-BR/docs/Web/CSS/CSS_Grid_Layout)
-- [CSS Tricks: A Complete Guide to Grid](https://css-tricks.com/snippets/css/complete-guide-grid/)
+```css
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
 
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+```
+
+---
+
+## Boas Práticas
+
+- Use `gap` para espaçamento interno em vez de margens.
+- Combine Grid com Flexbox para layouts híbridos (ex.: Grid para estrutura geral e Flexbox para alinhamento interno).
+
+---
+
+## Exercício Prático
+
+**Desafio:** Crie um layout de galeria com 6 imagens, onde:
+- Em telas grandes, as imagens fiquem em 3 colunas.
+- Em telas médias, fiquem em 2 colunas.
+- Em telas pequenas, fiquem em 1 coluna.
+
+**Dicas:**
+- Use `grid-template-columns: repeat(3, 1fr);` para 3 colunas.
+- Adicione media queries para ajustar o número de colunas conforme o tamanho da tela.
+- Experimente propriedades como `gap`, `justify-items` e `align-items` para aprimorar o layout.

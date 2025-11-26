@@ -79,7 +79,43 @@ Três formas principais:
 
 ---
 
-## 5\. Cores Modernas em CSS
+## 4\. Seletores Avançados
+
+CSS oferece seletores poderosos para estilizar elementos de forma precisa:
+
+- **`:nth-child(n)`**: Seleciona o n-ésimo filho.
+- **`:not(selector)`**: Exclui elementos que correspondem ao seletor.
+
+### Exemplo
+```css
+li:nth-child(odd) {
+    background-color: #f0f0f0;
+}
+li:not(.ativo) {
+    color: #ccc;
+}
+```
+
+## 5\. Variáveis CSS
+
+Variáveis CSS tornam os estilos mais reutilizáveis e fáceis de manter.
+
+### Exemplo
+```css
+:root {
+    --cor-primaria: #3498db;
+    --padding-padrao: 1rem;
+}
+
+button {
+    background: var(--cor-primaria);
+    padding: var(--padding-padrao);
+}
+```
+
+---
+
+## 6\. Cores Modernas em CSS
 
 - **Nomes**: `red`, `blue`, `tomato`
 - **HEX**: `#ff5733`
@@ -96,7 +132,7 @@ h1 { color: hsl(210, 90%, 40%); }
 
 ---
 
-## 6\. Fundos Modernos
+## 7\. Fundos Modernos
 
 - **Cor sólida**: `background-color: #fff;`
 - **Imagem**: `background-image: url('img.jpg');`
@@ -114,7 +150,7 @@ h1 { color: hsl(210, 90%, 40%); }
 
 ---
 
-## 7\. Exemplo Moderno e Compacto
+## 8\. Exemplo Moderno e Compacto
 
 ```html
 <!DOCTYPE html>

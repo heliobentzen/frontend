@@ -58,7 +58,29 @@ try {
 
 ---
 
-## 2. Usando JSON com APIs (Fetch)
+## 2. Validando e Manipulando JSON
+
+Antes de usar um JSON, é importante validá-lo. Use ferramentas como [jsonlint.com](https://jsonlint.com) para verificar a estrutura.
+
+### Exemplo: Validando e Manipulando JSON
+```javascript
+const jsonString = '{ "nome": "Ana", "idade": 28 }';
+
+try {
+    const objeto = JSON.parse(jsonString);
+    console.log(objeto.nome); // Ana
+
+    // Adicionando uma nova propriedade
+    objeto.ativo = true;
+    console.log(JSON.stringify(objeto));
+} catch (error) {
+    console.error('JSON inválido:', error);
+}
+```
+
+---
+
+## 3. Usando JSON com APIs (Fetch)
 
 A principal aplicação de JSON é na comunicação com APIs.
 
@@ -112,9 +134,25 @@ async function criarUsuario(novoUsuario) {
 criarUsuario({ nome: 'Beatriz', email: 'bia@exemplo.com' });
 ```
 
+### Exemplo com `fetch`
+
+Ao consumir APIs, o JSON é o formato mais comum para enviar e receber dados.
+```javascript
+fetch('https://jsonplaceholder.typicode.com/posts', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ titulo: 'Novo Post', conteudo: 'Conteúdo do post' })
+})
+    .then(response => response.json())
+    .then(data => console.log('Post criado:', data))
+    .catch(error => console.error('Erro:', error));
+```
+
 ---
 
-## 3. Manipulando os Dados Recebidos
+## 4. Manipulando os Dados Recebidos
 
 Uma vez que você tem o objeto JavaScript, pode usar todos os recursos da linguagem para manipulá-lo.
 
@@ -163,7 +201,7 @@ console.log(valorTotal); // Saída: 5950
 
 ---
 
-## 4. Pontos de Atenção (Armadilhas Comuns)
+## 5. Pontos de Atenção (Armadilhas Comuns)
 
 - **Sintaxe Rígida**: JSON exige aspas duplas `"` em chaves e strings. Vírgulas no final de listas ou objetos (`trailing commas`) são proibidas. Comentários não são permitidos.
 - **Tipos de Dados Perdidos**: `JSON.stringify` omite `undefined`, funções e símbolos. `NaN` e `Infinity` são convertidos para `null`.

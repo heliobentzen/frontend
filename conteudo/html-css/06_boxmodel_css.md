@@ -75,6 +75,41 @@ Assim, o tamanho total do elemento inclui padding e borda, tornando o layout pre
 
 ---
 
+## 3\. Box Sizing
+
+O `box-sizing` controla como o tamanho total de um elemento é calculado:
+
+- **`content-box`**: Inclui apenas o conteúdo (padrão).
+- **`border-box`**: Inclui padding e borda no cálculo.
+
+### Exemplo
+```css
+* {
+    box-sizing: border-box;
+}
+```
+
+## 4\. Layouts Responsivos com Box Model
+
+Combine o Box Model com propriedades como `max-width` e `media queries` para criar layouts flexíveis.
+
+### Exemplo
+```css
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0.5rem;
+    }
+}
+```
+
+---
+
 ## 3\. Exemplo Prático
 
 ```html

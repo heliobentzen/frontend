@@ -120,36 +120,43 @@ Promise.all([p1, p2, p3]).then((values) => {
 });
 ```
 
-## 7. Async/Await: A Sintaxe Preferida
+## 7. `async/await`: Uma Alternativa às Promises
 
-`async/await` é uma sintaxe mais moderna e limpa para trabalhar com promises, fazendo o código assíncrono parecer síncrono. **Esta é a forma mais comum e recomendada de lidar com código assíncrono em aplicações React modernas.**
+O `async/await` simplifica o uso de Promises, tornando o código mais legível.
 
-*   **`async`**: A palavra-chave `async` antes de uma função faz com que ela retorne implicitamente uma `Promise`.
-*   **`await`**: A palavra-chave `await` pausa a execução da função `async` e espera pela resolução da `Promise`. Só pode ser usada dentro de uma função `async`.
-
-O tratamento de erros é feito com o bloco `try...catch` tradicional, o que torna o código mais legível e fácil de depurar.
-
+### Exemplo
 ```javascript
-// Re-escrevendo o exemplo de encadeamento com async/await
-
-async function executarFluxo() {
+async function buscarDados() {
     try {
-        console.log("Buscando dados do usuário...");
-        const usuario = await buscarDados(); // Pausa aqui até buscarDados() resolver
-
-        console.log("Usuário encontrado:", usuario.nome);
-        console.log("Buscando pedidos...");
-        const pedidos = await buscarPedidos(usuario); // Pausa aqui até buscarPedidos() resolver
-
-        console.log("Pedidos:", pedidos);
+        const resposta = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+        const dados = await resposta.json();
+        console.log('Dados recebidos:', dados);
     } catch (erro) {
-        console.error("Ocorreu um erro no fluxo:", erro);
-    } finally {
-        console.log("Fluxo finalizado.");
+        console.error('Erro ao buscar dados:', erro);
     }
 }
 
-executarFluxo();
+buscarDados();
+```
+
+### Comparação com Promises
+```javascript
+// Com Promises
+fetch('https://jsonplaceholder.typicode.com/posts/1')
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err));
+
+// Com async/await
+async function exemplo() {
+    try {
+        const res = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+        const data = await res.json();
+        console.log(data);
+    } catch (err) {
+        console.error(err);
+    }
+}
 ```
 
 ## 8. Promises no Contexto do React

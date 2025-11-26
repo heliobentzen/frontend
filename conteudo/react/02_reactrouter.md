@@ -426,3 +426,35 @@ function App() {
     );
 }
 ```
+
+---
+
+## 4. Rotas Dinâmicas e Aninhadas
+
+O React Router permite criar rotas dinâmicas e aninhadas para aplicações mais complexas.
+
+### Rotas Dinâmicas
+Use o `useParams` para acessar parâmetros dinâmicos na URL.
+```jsx
+import { useParams } from 'react-router-dom';
+
+function Usuario() {
+    const { id } = useParams();
+    return <h1>Detalhes do Usuário {id}</h1>;
+}
+```
+
+### Rotas Aninhadas
+Defina rotas dentro de outras rotas usando o componente `<Outlet>`.
+```jsx
+import { Outlet } from 'react-router-dom';
+
+function Painel() {
+    return (
+        <div>
+            <h1>Painel</h1>
+            <Outlet />
+        </div>
+    );
+}
+```

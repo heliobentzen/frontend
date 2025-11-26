@@ -84,25 +84,33 @@ Sintaxe:
 
 -----
 
-## 5. Estrutura Completa de um Documento HTML
+## 4. Acessibilidade com HTML
 
-Veja como fica a estrutura básica de um arquivo HTML:
+A acessibilidade \\(a11y\\) garante que todos os usu\u00e1rios, incluindo aqueles com defici\u00eancias, possam navegar e interagir com a web. Use atributos `aria-*` para melhorar a experi\u00eancia:
 
+- **`aria-label`**: Adiciona descri\u00e7\u00f5es a elementos.
+- **`role`**: Define o papel de um elemento (ex.: `role="button"`).
+
+### Exemplo
 ```html
-<!DOCTYPE html>
-<html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <title>Minha Primeira Página Estruturada</title>
-    </head>
-    <body>
-        <h1>Meu Primeiro Título</h1>
-        <p>Este é um parágrafo dentro do corpo da página.</p>
-    </body>
-</html>
+<button aria-label="Fechar janela">&times;</button>
 ```
 
-[Veja o resultado dessa página HTML](https://delanohelio.github.io/dw/exemplos/introducao_html.html)
+## 5. Metadados no `<head>`
+
+Metadados ajudam navegadores e mecanismos de busca a entenderem sua p\u00e1gina. Inclua:
+
+- **`<meta charset>`**: Define a codifica\u00e7\u00e3o de caracteres.
+- **`<meta name="viewport">`**: Torna a p\u00e1gina responsiva.
+
+### Exemplo
+```html
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha P\u00e1gina</title>
+</head>
+```
 
 -----
 

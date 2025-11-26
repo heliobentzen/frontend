@@ -248,3 +248,37 @@ Crie um componente principal chamado `App`. Dentro dele, renderize o componente 
   }
   ```
 </details>
+
+## Hooks no React
+
+Os Hooks foram introduzidos no React 16.8 e permitem que você use estado e outros recursos do React sem escrever uma classe. Os principais Hooks incluem:
+
+- **useState**: Para gerenciar estados locais.
+- **useEffect**: Para lidar com efeitos colaterais, como chamadas à API.
+- **useContext**: Para consumir Context API de forma mais simples.
+
+### Exemplo com useState e useEffect
+```jsx
+import React, { useState, useEffect } from 'react';
+
+function Contador() {
+    const [contador, setContador] = useState(0);
+
+    useEffect(() => {
+        console.log(`O contador foi atualizado para: ${contador}`);
+    }, [contador]);
+
+    return (
+        <div>
+            <p>Contador: {contador}</p>
+            <button onClick={() => setContador(contador + 1)}>Incrementar</button>
+        </div>
+    );
+}
+```
+
+### Usando TypeScript com React
+O TypeScript melhora a experiência de desenvolvimento ao adicionar tipagem estática. Para configurar um projeto React com TypeScript, use:
+```bash
+npm create vite@latest meu-projeto -- --template react-ts
+```

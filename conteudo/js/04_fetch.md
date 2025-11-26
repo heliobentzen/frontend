@@ -88,6 +88,40 @@ fetch('https://jsonplaceholder.typicode.com/posts', {
     });
 ```
 
+## 3. Métodos HTTP com `fetch`
+
+Além de `GET`, o `fetch` suporta outros métodos HTTP como `POST`, `PUT` e `DELETE`.
+
+### Exemplo: Enviando Dados com `POST`
+
+```javascript
+fetch('https://jsonplaceholder.typicode.com/posts', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ titulo: 'Novo Post', conteudo: 'Conteúdo do post' })
+})
+    .then(response => response.json())
+    .then(data => console.log('Post criado:', data))
+    .catch(error => console.error('Erro:', error));
+```
+
+### Exemplo: Atualizando Dados com `PUT`
+
+```javascript
+fetch('https://jsonplaceholder.typicode.com/posts/1', {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ titulo: 'Post Atualizado', conteudo: 'Conteúdo atualizado' })
+})
+    .then(response => response.json())
+    .then(data => console.log('Post atualizado:', data))
+    .catch(error => console.error('Erro:', error));
+```
+
 ## Usando `async/await`
 
 `async/await` é uma sintaxe mais moderna e legível para trabalhar com *Promises*. Ela permite escrever código assíncrono que se parece com código síncrono.
@@ -225,4 +259,38 @@ const fetchWithTimeout = async (url, timeoutMs) => {
 
 // Tenta buscar um post com um timeout de 500ms
 fetchWithTimeout('https://jsonplaceholder.typicode.com/posts/4', 500);
+```
+
+## 4. Criando Hooks Customizados para `fetch`
+
+Reutilize lógica de chamadas à API com hooks customizados.
+
+### Exemplo: `useFetch`
+
+```javascript
+import { useState, useEffect } from 'react';
+
+function useFetch(url) {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        setLoading(true);
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na requisição');
+                }
+                return response.json();
+            })
+            .then(data => setData(data))
+            .catch(error => setError(error))
+            .finally(() => setLoading(false));
+    }, [url]);
+
+    return { data, loading, error };
+}
+
+export default useFetch;
 ```

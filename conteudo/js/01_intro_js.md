@@ -130,29 +130,6 @@ const cep = user?.endereco?.cep; // undefined (não quebra o código)
 const idade = user?.idade ?? 18; // Se user.idade for null/undefined, usa 18
 ```
 
-### 5.5 Desestruturação, Spread e Rest
-Técnicas poderosas para trabalhar com objetos e arrays de forma concisa.
-
-```js
-// Desestruturação: "desempacota" valores de objetos ou arrays
-const livro = { titulo: "JS Moderno", ano: 2024 };
-const { titulo, ano: anoDePublicacao } = livro; // Pega 'titulo' e renomeia 'ano'
-
-const cores = ["azul", "verde", "vermelho"];
-const [primeiraCor, , terceiraCor] = cores; // Pega o primeiro e o terceiro item
-
-// Spread Operator (...): "espalha" elementos de um array ou propriedades de um objeto
-const nums1 = [1, 2];
-const nums2 = [3, 4];
-const todosOsNumeros = [...nums1, ...nums2]; // [1, 2, 3, 4]
-
-// Rest Parameters (...): agrupa múltiplos argumentos de uma função em um array
-function somaTudo(...numeros) {
-    return numeros.reduce((total, num) => total + num, 0);
-}
-somaTudo(1, 2, 3, 4); // 10
-```
-
 ---
 
 ## 6. Estruturas de Controle
@@ -405,3 +382,44 @@ try {
 - **TypeScript:** Adicione tipos estáticos ao seu JavaScript para pegar erros mais cedo e melhorar a organização.
 
 **Resumo:** Você viu as bases sólidas do JavaScript moderno. O segredo agora é praticar. Crie pequenos projetos, resolva desafios e, o mais importante, divirta-se!
+
+---
+
+## 4. Recursos Modernos do ES6+
+
+O ES6 trouxe melhorias significativas para o JavaScript. Aqui estão alguns recursos essenciais:
+
+### Destructuring
+Permite extrair valores de arrays ou objetos de forma mais simples.
+```javascript
+const pessoa = { nome: 'Ana', idade: 28 };
+const { nome, idade } = pessoa;
+console.log(nome, idade); // Ana 28
+```
+
+### Spread e Rest Operators
+- **Spread (`...`)**: Expande elementos de arrays ou objetos.
+- **Rest (`...`)**: Coleta o restante dos elementos.
+```javascript
+const numeros = [1, 2, 3];
+const maisNumeros = [...numeros, 4, 5];
+console.log(maisNumeros); // [1, 2, 3, 4, 5]
+```
+
+### Funções Arrow
+Funções mais curtas e com escopo de `this` léxico.
+```javascript
+const soma = (a, b) => a + b;
+console.log(soma(2, 3)); // 5
+```
+
+### Módulos
+Organize seu código em arquivos separados.
+```javascript
+// arquivo.js
+export const saudacao = 'Olá';
+
+// main.js
+import { saudacao } from './arquivo.js';
+console.log(saudacao);
+```

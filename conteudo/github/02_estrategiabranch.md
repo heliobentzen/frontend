@@ -1,109 +1,153 @@
-# Guia de Estratégia de Branches (Git)
+# Guia de Branches (Git) usando o Source Control do VS Code (logado no GitHub)
 
-Este documento descreve uma estratégia simples de branches para projetos acadêmicos com pouca experiência em Git.  
-O objetivo é manter o fluxo **claro, organizado e fácil de seguir**.
+Este guia adapta o fluxo para usar o painel Source Control do VS Code com a conta do GitHub conectada.  
+Objetivo: operar branches, commits, push e PRs pela interface do VS Code.
+
+Pré-requisitos:
+- Git instalado e configurado (nome e e‑mail).
+- VS Code atualizado.
+- Conecte sua conta GitHub: Accounts (canto inferior esquerdo) > Sign in to GitHub.
+- Opcional: extensão “GitHub Pull Requests and Issues” para criar/gerenciar PRs dentro do VS Code.
+
+---
+
+## Começo rápido (clonar/publicar)
+
+- Clonar do GitHub: Source Control > Clone Repository… > selecione o repo > escolha pasta.
+- Iniciar repo local: Source Control > Initialize Repository > Publish to GitHub (cria repo remoto e configura “origin”).
 
 ---
 
 ## Estrutura de Branches
 
-- **main**  
-  - Sempre estável, contém a versão oficial do projeto.  
-  - Só recebe código revisado e testado.  
+- main
+    - Estável e liberável.
+    - Só recebe código revisado/testado.
+- feature/…
+    - Uma por tarefa (ex.: feature/login).
+    - Após concluir, abrir PR para main.
 
-- **feature/**  
-  - Cada pessoa cria uma branch para sua tarefa específica.  
-  - Exemplo: `feature/login`, `feature/upload-imagens`.  
-  - Após concluir e revisar, faz merge na `main`.
+Dica: alterne a branch pelo seletor na status bar (canto inferior esquerdo).
 
 ---
 
-## Fluxo de Trabalho
+## Fluxo no Source Control (VS Code + GitHub)
 
-1. **Atualizar a branch principal**
-   ```bash
-   git checkout main
-   git pull origin main
-   ```
+1) Atualizar a main
+     - Troque para main na status bar.
+     - Source Control > botão “Sync Changes” (faz fetch/pull/push) ou “…” > Pull.
+     - Use “…” > Fetch para buscar atualizações sem integrar.
 
-2. **Criar uma branch de funcionalidade**
-   ```bash
-   git checkout -b feature/nome-da-tarefa
-   ```
+2) Criar a branch de feature
+     - Clique no nome da branch (status bar) > Create new branch… (a partir de main).
+     - Nomeie como feature/nome-da-tarefa.
 
-3. **Fazer commits pequenos e frequentes**
-   ```bash
-   git add .
-   git commit -m "feat(login): adiciona formulário básico"
-   ```
+3) Trabalhar e commitar
+     - Source Control:
+         - Selecione arquivos e use “+” para Stage.
+         - Escreva a mensagem (ex.: feat(login): formulário inicial) > Commit.
+         - Use stage parcial por hunk/linha no diff (botões no editor).
+         - “Timeline” mostra histórico do arquivo.
 
-4. **Enviar a branch para o remoto**
-   ```bash
-   git push -u origin feature/nome-da-tarefa
-   ```
+4) Publicar a branch
+     - Clique em Publish Branch (após criar) ou use Push/Sync Changes.
+     - Confirme o remoto “origin” se solicitado.
 
-5. **Abrir Pull Request (PR)**
-   - Descreva claramente o que foi feito.  
-   - Certifique-se de que os testes passam.  
-   - Peça revisão de pelo menos um colega.  
+5) Abrir Pull Request (PR)
+     - Após o push, o VS Code exibe um toast “Create Pull Request”.
+     - Também disponível em Source Control > “…” > Create Pull Request (requer extensão do GitHub).
+     - Sem extensão: use “Open on GitHub” no toast/Status Bar e crie o PR no navegador.
+     - Base: main | Compare: sua feature/…
+     - Preencha título/descrição, adicione reviewers e verifique os Checks (Actions).
 
-6. **Merge para main**
-   - Preferir “Squash and merge” para manter histórico limpo.  
-   - Após merge:
-     ```bash
-     git checkout main
-     git pull origin main
-     ```
+6) Merge para main
+     - No GitHub: prefira “Squash and merge” para histórico limpo.
+     - Depois do merge:
+         - Volte para main (status bar) e faça Pull/Sync Changes.
+         - Opcional: “…” > Delete Branch para remover a branch local já mesclada.
 
-7. **Deletar branch de feature**
-   ```bash
-   git branch -d feature/nome-da-tarefa
-   git push origin --delete feature/nome-da-tarefa
-   ```
+7) Excluir branch de feature
+     - No GitHub: “Delete branch” após o merge.
+     - Local: Source Control > “…” > Delete Branch.
+     - Se necessário remover no remoto: “…” > Push… (apaga branch remota) ou menu Branches na aba Source Control.
+
+---
+
+## Estratégias de Branching
+
+### Git Flow
+
+O Git Flow é uma estratégia popular para gerenciar branches em projetos colaborativos.
+
+- **main**: Contém o código pronto para produção.
+- **develop**: Branch principal para desenvolvimento.
+- **feature/**: Branches para novas funcionalidades.
+- **release/**: Preparação para uma nova versão.
+- **hotfix/**: Correções urgentes em produção.
+
+### Trunk-Based Development
+
+Uma abordagem mais simples, onde todos os desenvolvedores trabalham diretamente na `main` ou em branches curtas.
+
+- Ideal para equipes pequenas.
+- Requer integração contínua (CI) para evitar conflitos.
+
+---
+
+## Resolvendo Conflitos no VS Code
+
+1. Ao tentar fazer merge, o Git pode indicar conflitos.
+2. No VS Code, os arquivos conflitantes aparecem no Source Control.
+3. Clique em um arquivo para abrir o editor de conflitos.
+4. Escolha entre as mudanças ou combine-as manualmente.
+5. Após resolver, marque o arquivo como resolvido:
+
+```bash
+git add arquivo-conflito
+```
+
+6. Finalize o merge:
+
+```bash
+git commit
+```
 
 ---
 
 ## Boas Práticas
 
-- **Nomes claros**: use prefixos (`feature/`, `bugfix/`, `docs/`).  
-- **Commits pequenos**: mensagens padronizadas (`feat:`, `fix:`, `docs:`).  
-- **Nada quebra a main**: só mergear quando passar nos testes.  
-- **PR obrigatório**: revisão mínima de 1 colega.  
-- **Atualizar sempre**: `git pull` antes de começar a trabalhar.  
+- Nomes claros: feature/, bugfix/, docs/.
+- Commits pequenos e atômicos: feat:, fix:, docs:. Use stage seletivo.
+- Proteja a main: rode testes antes do PR (Terminal integrado: npm test, pnpm test, pytest…).
+- PR obrigatório com pelo menos 1 reviewer.
+- Atualize sempre: Fetch/Pull antes de começar.
+- Evite temporários: confira .gitignore; não faça stage de node_modules, .env etc.
 
 ---
 
-## Variante com Branch de Integração (main + dev)
-
-- **main**: versão estável e apresentável.  
-- **dev**: integração diária das features.  
-- Fluxo:
-  - Trabalhar em `feature/...`  
-  - Abrir PR para `dev`  
-  - Quando `dev` estiver estável, abrir PR de `dev` → `main`
-
----
-
-## Visual do Fluxo
+## Visual do fluxo
 
 ```
 main ──►───────────────┐──────────────
-                       │
+                                                                                         │
 feature/login ──► PR ──┘
 feature/upload ──► PR ─┐
-                        └────► main
+                                                                                                └────► main
 ```
 
 ---
 
-## Checklist de Pull Request
+## Checklist de PR
 
-- [ ] Código compila sem erros  
-- [ ] Testes passam  
-- [ ] Sem arquivos temporários (`node_modules`, `.env`)  
-- [ ] Mensagens de commit claras  
-- [ ] Revisado por pelo menos 1 colega  
+- [ ] Build/execução local sem erros (Terminal integrado).
+- [ ] Testes passam localmente e nos Checks do PR.
+- [ ] Sem temporários em “Changes” (node_modules, .env).
+- [ ] Commits claros e atômicos.
+- [ ] Revisado por 1+ colega.
 
----
-```
-
+Dicas rápidas (Source Control):
+- Alternar branch: clique na branch na status bar.
+- Ver diffs/inline: clique no arquivo em Changes.
+- Resolver conflitos: abra “Merge Changes” e use Accept Current/Incoming/Both.
+- Stash: “…” > Stash / Apply Stash para trocar de branch sem commitar.
+- Sincronizar fork: “…” > Fetch de upstream (se configurado) e Pull conforme necessário.

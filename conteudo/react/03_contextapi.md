@@ -166,6 +166,42 @@ button {
 }
 ```
 
+## Context API com useReducer
+
+Para estados mais complexos, combine Context API com o hook `useReducer`.
+
+### Exemplo
+
+```javascript
+import React, { createContext, useReducer, useContext } from 'react';
+
+const ContadorContext = createContext();
+
+function contadorReducer(state, action) {
+    switch (action.type) {
+        case 'incrementar':
+            return { contador: state.contador + 1 };
+        case 'decrementar':
+            return { contador: state.contador - 1 };
+        default:
+            throw new Error(`A\u00e7\u00e3o desconhecida: ${action.type}`);
+    }
+}
+
+export function ContadorProvider({ children }) {
+    const [state, dispatch] = useReducer(contadorReducer, { contador: 0 });
+    return (
+        <ContadorContext.Provider value={{ state, dispatch }}>
+            {children}
+        </ContadorContext.Provider>
+    );
+}
+
+export function useContador() {
+    return useContext(ContadorContext);
+}
+```
+
 ## Quando Usar a Context API?
 
 -   **Dados Globais**: Ideal para dados que são considerados "globais" para uma árvore de componentes, como informações do usuário autenticado, tema, ou idioma preferido.

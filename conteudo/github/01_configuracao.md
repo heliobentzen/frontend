@@ -67,7 +67,69 @@ Este material mostra como criar, clonar, versionar e colaborar em projetos usand
      - Após aprovações e checks, faça merge no GitHub.
      - De volta ao Desktop: mude para main, “Pull origin” e delete a branch antiga se desejar.
 
-## 5) Integração no VS Code
+## 4) GitHub Actions: CI/CD Simplificado
+
+O GitHub Actions permite automatizar tarefas como build, testes e deploy. Para configurar:
+
+1. Crie um arquivo `.github/workflows/ci.yml` no repositório.
+2. Exemplo de workflow para Node.js:
+
+```yaml
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Rodar testes
+        run: npm test
+```
+
+## 5) Configurando múltiplos remotes
+
+Se você trabalha com forks, configure o `upstream` para manter seu fork atualizado:
+
+```bash
+git remote add upstream https://github.com/usuario/original-repo.git
+git fetch upstream
+git merge upstream/main
+```
+
+## 6) Exemplo de .gitignore
+
+Adicione um arquivo `.gitignore` para evitar versionar arquivos desnecessários:
+
+```
+node_modules/
+.env
+*.log
+```
+
+Para projetos com arquivos grandes, use o Git LFS:
+
+```bash
+git lfs install
+git lfs track "*.psd"
+```
+
+## 7) Integração no VS Code
 - Controle de versão:
     - Ícone “Source Control” (Ctrl+Shift+G): visualizar mudanças, stage, commit, push/pull.
 - Extensões recomendadas:
@@ -80,12 +142,12 @@ Este material mostra como criar, clonar, versionar e colaborar em projetos usand
     - Mensagens curtas e descritivas; adote Conventional Commits (feat, fix, chore, docs).
     - Padrões de branch: feat/, fix/, chore/, hotfix/.
 
-## 6) .gitignore, secrets e LFS
+## 8) .gitignore, secrets e LFS
 - Configure .gitignore ao criar o repositório (ex.: Node, Python, .NET).
 - Nunca faça commit de segredos (.env, chaves). Use variáveis de ambiente e GitHub Secrets.
 - Arquivos grandes (mídia/datasets): considere Git LFS.
 
-## 7) Atualizar, sincronizar e colaborar
+## 9) Atualizar, sincronizar e colaborar
 - Sincronizar com a origem:
     - Sempre “Fetch/Pull” antes de iniciar uma nova tarefa.
 - Rebase/merge:
@@ -95,19 +157,19 @@ Este material mostra como criar, clonar, versionar e colaborar em projetos usand
 - Repositórios forkados:
     - Adicione “upstream” no Desktop (Repository > Repository Settings > Remotes) para acompanhar o repositório original.
 
-## 8) Resolver conflitos
+## 10) Resolver conflitos
 - Ao puxar/merger com conflitos, o Desktop indica os arquivos.
 - Abra no VS Code, localize marcadores <<<<<<<, =======, >>>>>>> e escolha as mudanças corretas.
 - Teste, marque como resolvido (stage), faça commit e finalize o merge/rebase pelo Desktop.
 
-## 9) Boas práticas
+## 11) Boas práticas
 - Commits pequenos e frequentes; um tema por commit.
 - Pull Requests curtos com descrição clara, screenshots se visual.
 - Proteja a branch main (branch protection, reviews obrigatórias, CI).
 - Automatize checks (lint, testes) no GitHub Actions.
 - Use Issues/Projects para planejar e rastrear trabalho.
 
-## 10) Problemas comuns e soluções
+## 12) Problemas comuns e soluções
 - Solicitação de senha ao fazer push:
     - Com Desktop, autenticação é integrada. No CLI, use Personal Access Token em vez de senha.
 - Nome/e‑mail incorretos no histórico:
@@ -121,7 +183,7 @@ Este material mostra como criar, clonar, versionar e colaborar em projetos usand
         - git rm -r --cached pasta-ou-arquivo
         - git commit -m "chore: limpa artefatos versionados por engano"
 
-## 11) Comandos úteis (opcional, via terminal do VS Code)
+## 13) Comandos úteis (opcional, via terminal do VS Code)
 - Ver estado: git status
 - Criar branch: git checkout -b feat/minha-branch
 - Atualizar local: git pull
