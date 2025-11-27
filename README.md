@@ -44,7 +44,7 @@ Durante o curso, você desenvolverá miniapps para praticar os conceitos fundame
 - Arrays e objetos
 - Algoritmos básicos e resolução de problemas
 
-### 🎨 Noções de UX Design (15h)
+### 🎨 Noções de UX Design
 
 - Princípios de usabilidade
 - Arquitetura da informação
@@ -52,15 +52,14 @@ Durante o curso, você desenvolverá miniapps para praticar os conceitos fundame
 - Design centrado no usuário
 - Testes de usabilidade e heurísticas
 
-### ⚛️ ReactJS e Ecossistema (21h)
-
+### ⚛️ ReactJS e Ecossistema
 - JSX e componentes funcionais
 - Props, estado e ciclo de vida com Hooks
 - React Router para navegação
 - Context API para gerenciamento de estado global
 - Integração com APIs usando Fetch API
 
-### 🧩 TypeScript e Orientação a Objetos (21h)
+### 🧩 TypeScript e Orientação a Objetos
 
 - Tipagem estática e interfaces
 - Classes, herança e encapsulamento
@@ -68,7 +67,7 @@ Durante o curso, você desenvolverá miniapps para praticar os conceitos fundame
 - Refatoração de componentes React com TypeScript
 - Boas práticas de organização de código
 
-### 🌐 Web Services (Client Side) (15h)
+### 🌐 Web Services (Client Side)
 
 - Consumo de APIs REST com Fetch
 - Autenticação e headers personalizados
