@@ -19,11 +19,18 @@ Antes de criar a release, prepare o projeto:
     npm test
     ```
 
-- **Gere build de produção:**  
-    ```bash
-    npm run build
-    ```
-    ✅ Resultado: pasta `build/` com artefatos otimizados
+- **Generate production build:**  
+  ```bash
+  npm run build
+  ```
+  ✅ Resultado: `dist/` pasta com resultados otimizados
+
+- **Crie o arquivo de release:**  
+  ```bash
+  zip -r build-v1.2.0.zip dist/
+  ```
+  📌 **Convenção de nome:** `build-v{VERSION}.zip` garante clareza e distingue cada versão criada.
+
 
 ---
 
