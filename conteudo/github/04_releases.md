@@ -10,14 +10,14 @@ Criar e gerenciar releases no GitHub é essencial para controle de versão e dis
 Antes de criar a release, prepare o projeto:
 
 - **Instale dependências:**  
-    ```bash
-    npm install
-    ```
+  ```bash
+  npm install
+  ```
 
 - **Execute testes:**  
-    ```bash
-    npm test
-    ```
+  ```bash
+  npm test
+  ```
 
 - **Generate production build:**  
   ```bash
@@ -38,10 +38,10 @@ Antes de criar a release, prepare o projeto:
 Use **SemVer** (Semantic Versioning) para versionamento:
 - Formato: `v1.2.0` (Maior.Menor.Patch)
 - Atualize automaticamente com:
-    ```bash
-    npm version minor
-    ```
-    ✅ Isso cria automaticamente um commit e tag
+  ```bash
+  npm version minor
+  ```
+  ✅ Isso cria automaticamente um commit e tag
 
 ---
 
@@ -58,9 +58,13 @@ git push origin v1.2.0
 1. Vá para **Releases → Rascunhar nova release**
 2. Selecione a tag (`v1.2.0`)
 3. Preencha os campos:
-     - **Título:** `v1.2.0 – Nova versão estável`
-     - **Descrição:** detalhe as alterações
-     - **Anexos:** inclua `build.zip` se necessário
+   - **Título:** `v1.2.0 – Nova versão estável`
+   - **Descrição:** detalhe as alterações
+   - **Anexos:** inclua `build.zip` se necessário
+4. Escolha entre:
+   - **Publicar release:** disponibiliza imediatamente para usuários
+   - **Salvar como rascunho:** permite revisão antes de publicar
+5. Clique em **Publicar release**
 
 ---
 
@@ -101,23 +105,23 @@ name: Release React App
 
 on:
   push:
-    tags:
-      - 'v*'
+  tags:
+    - 'v*'
 
 jobs:
   build-and-release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - run: npm ci
-      - run: npm run build
-      - run: zip -r build.zip build
-      - uses: softprops/action-gh-release@v1
-        with:
-          files: build.zip
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+    with:
+      node-version: '18'
+    - run: npm ci
+    - run: npm run build
+    - run: zip -r build.zip build
+    - uses: softprops/action-gh-release@v1
+    with:
+      files: build.zip
 ```
 
 ---
@@ -140,3 +144,4 @@ jobs:
 - **Changelog contínuo:** atualize com cada PR usando categorias padronizadas.  
 - **Automação:** use GitHub Actions para CI/CD.  
 - **Referências:** mencione issues e PRs com `Closes #123` e credite com @mentions.
+
